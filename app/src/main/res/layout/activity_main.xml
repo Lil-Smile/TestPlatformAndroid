@@ -1,0 +1,165 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/tabHost"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+        >
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+        <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+        </TabWidget>
+
+        <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+            <RelativeLayout
+                    android:id="@+id/tab1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/llLogin"
+                              android:layout_centerHorizontal="true"
+                              android:layout_centerVertical="true"  >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/login"
+                        android:id="@+id/tvLogin"/>
+                     <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etLogin"
+                        android:layout_marginLeft="@dimen/margin_left_login"
+                        />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/llPassword"
+                              android:layout_below="@+id/llLogin"
+                              android:layout_centerHorizontal="true">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/password"
+                        android:id="@+id/tvPassword"
+                       />
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/etPassword"
+                        android:layout_marginLeft="@dimen/margin_left_login"
+                        />
+                </LinearLayout>
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go"
+                        android:id="@+id/buttonGoLogin"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/llPassword"
+                        android:layout_marginTop="55dp"/>
+
+                <Button android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/loginAnonymous"
+                        android:id="@+id/loginAnonymous"
+                        android:layout_below="@id/buttonGoLogin"
+                        android:layout_centerHorizontal="true"
+                        />
+            </RelativeLayout>
+            <RelativeLayout
+                    android:id="@+id/tab2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    >
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/llsignupEmail"
+
+                              android:layout_centerHorizontal="true">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/email"
+                            android:id="@+id/tvsignupEmail"
+                            />
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etsignupEmail"
+                            android:layout_marginLeft="@dimen/margin_left_login"
+                            />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/llsignupLogin"
+                              android:layout_centerHorizontal="true"
+                              android:layout_below="@id/llsignupEmail"  >
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/login"
+                            android:id="@+id/tvsignupLogin"/>
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etsignupLogin"
+                            android:layout_marginLeft="@dimen/margin_left_login"
+                            />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content"
+                              android:layout_height="wrap_content"
+                              android:id="@+id/llsignupPassword"
+                              android:layout_below="@+id/llsignupLogin"
+                              android:layout_centerHorizontal="true">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/password"
+                            android:id="@+id/tvsignupPassword"
+                            />
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etsignupPassword"
+                            android:layout_marginLeft="@dimen/margin_left_login"
+                            />
+                </LinearLayout>
+                <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                              android:id="@+id/llsignupPasswordRepeat"
+                              android:layout_below="@+id/llsignupPassword"
+                              android:layout_centerHorizontal="true">
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/repeatPassword"
+                            android:id="@+id/tvsignupPasswordRepeat"
+                            />
+                    <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/etsignupPasswordRepeat"
+                            android:layout_marginLeft="@dimen/margin_left_login"
+                            />
+                </LinearLayout>
+                <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go"
+                        android:id="@+id/buttonGoSignup"
+                        android:layout_centerHorizontal="true"
+                        android:layout_below="@id/llsignupPassword"
+                        android:layout_marginTop="55dp"/>
+            </RelativeLayout>
+        </FrameLayout>
+    </LinearLayout>
+
+</TabHost>

@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">TestPlatformAndroid</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="repeatPassword">Repeat password</string>
+    <string name="go">Go</string>
+    <string name="loginAnonymous">Login as Guest</string>
+    <string name="noInternet">No Internet Connection</string>
+    <string name="firstNameURL">http://platform.lilsmile.xyz:8080</string>
+    <string name="badEmail">This email already exist</string>
+    <string name="badLogin">This login already exist</string>
+    <string name="wrongPassword">You wrote wrong password!</string>
+    <string name="wrongLogin">This login does not exist!</string>
+    <string name="smthIsWrong">Something went wrong, please try again</string>
+    <string name="everythingIsOk">Yay, it\'s ok, lets\'go!</string>
+    <string name="title_activity_perconal_cabinet">PerconalCabinet</string>
+    <string name="createTest">Create a test</string>
+    <string name="chooseTest">Choose a test</string>
+    <string name="logout">Log out</string>
+    <string name="goodBye">Successfully logout! Goodbye</string>
+    <string name="title_activity_create_test">CreateTest</string>
+    <string name="title_activity_choose_test">ChooseTest</string>
+    <string name="testTitle">Test Title</string>
+    <string name="author">Author</string>
+    <string name="category">Category</string>
+    <string name="title_activity_pass_test">PassTest</string>
+</resources>

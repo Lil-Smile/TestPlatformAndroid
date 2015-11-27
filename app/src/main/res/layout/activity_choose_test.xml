@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.lilsmile.testplatformandroid.app.ChooseTest">
+
+
+    <TableLayout android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:id="@+id/tableTests">
+        <TableRow>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_column="1"
+                      android:layout_gravity="start"
+                      android:text="@string/testTitle"
+                      android:layout_marginRight="@dimen/marginRight"
+                      android:id="@+id/testTitleHeader"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="center"
+                      android:id="@+id/authorHeader"
+                      android:layout_marginRight="@dimen/marginRight"
+                      android:text="@string/author"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_gravity="end"
+                      android:id="@+id/categoryHeader"
+                      android:text="@string/category"/>
+        </TableRow>
+        <View android:layout_height="@dimen/breakerHeight"
+              android:background="@color/breakerColor"
+              android:id="@+id/breaker0"  />
+    </TableLayout>
+</RelativeLayout>
