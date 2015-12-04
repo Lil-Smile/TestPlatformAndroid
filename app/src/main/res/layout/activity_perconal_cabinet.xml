@@ -12,19 +12,34 @@
             android:layout_height="wrap_content"
             android:id="@+id/buttonChooseTest"
             android:layout_centerHorizontal="true"
+            android:background="@drawable/button"
+            android:layout_marginTop="@dimen/marginTop"
             android:text="@string/chooseTest"/>
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonCreateTest"
             android:layout_below="@+id/buttonChooseTest"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop"
+            android:background="@drawable/button"
             android:text="@string/createTest"
+            />
+    <Button android:layout_width="wrap_content"
+            android:layout_below="@+id/buttonCreateTest"
+            android:layout_height="wrap_content"
+            android:id="@+id/buttonStat"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop"
+            android:text="@string/stat"
+            android:background="@drawable/button"
             />
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/buttonLogout"
-            android:layout_below="@+id/buttonCreateTest"
+            android:layout_below="@+id/buttonStat"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/marginTop"
+            android:background="@drawable/button"
             android:text="@string/logout"/>
 
 </RelativeLayout>

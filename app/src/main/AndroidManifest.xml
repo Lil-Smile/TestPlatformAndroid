@@ -23,22 +23,26 @@
         <activity
             android:name=".PerconalCabinet"
             android:label="@string/title_activity_perconal_cabinet"
-            android:theme="@android:style/Theme.Light.NoTitleBar"    >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name=".CreateTest"
             android:label="@string/title_activity_create_test"
-            android:theme="@android:style/Theme.Light.NoTitleBar"    >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name=".ChooseTest"
             android:label="@string/title_activity_choose_test"
-            android:theme="@android:style/Theme.Light.NoTitleBar"    >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
             android:name=".PassTest"
             android:label="@string/title_activity_pass_test"
-            android:theme="@android:style/Theme.Light.NoTitleBar"    >
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name=".Stat"
+            android:label="@string/title_activity_stat" >
         </activity>
     </application>
 

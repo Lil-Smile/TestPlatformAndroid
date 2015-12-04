@@ -19,16 +19,19 @@
                       android:layout_gravity="start"
                       android:text="@string/testTitle"
                       android:layout_marginRight="@dimen/marginRight"
+                      android:textSize="@dimen/textSize"
                       android:id="@+id/testTitleHeader"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="center"
                       android:id="@+id/authorHeader"
+                      android:textSize="@dimen/textSize"
                       android:layout_marginRight="@dimen/marginRight"
                       android:text="@string/author"/>
             <TextView android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:layout_gravity="end"
+                      android:textSize="@dimen/textSize"
                       android:id="@+id/categoryHeader"
                       android:text="@string/category"/>
         </TableRow>

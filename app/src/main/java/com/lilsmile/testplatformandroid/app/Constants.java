@@ -13,7 +13,9 @@ public interface Constants {
     String LOGOUT_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/auth/logout";
     String GET_TESTS_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/tests";
     String GET_TEST_BY_ID_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/tests/test?id=";
-
+    String PASSED_TEST_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/tests/passed_test";
+    String PASSED_CREATED_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/cabinet/passed_created";
+    String PASSED_TESTS_STRING = "http://platform.lilsmile.xyz:8080/TestPlatform/rest/cabinet/passed_tests";
 
     //codes
 
@@ -33,6 +35,13 @@ public interface Constants {
     String TOKEN = "token";
     String TYPE = "type";
     String ANSWERS_ARR="answersArr";
+    String TOTAL_WEIGHT="totalWeight";
+    String USER_WEIGHT="userWeight";
+    String CREATED = "created";
+    String PASSED = "passed";
+    String COUNT = "count";
+    String TESTS = "tests";
+
 
     //codes for signup
     String OK="200";

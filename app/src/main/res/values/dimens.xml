@@ -5,6 +5,11 @@
     <dimen name="margin_left_login">80dp</dimen>
     <dimen name="breakerHeight">2dip</dimen>
     <color name="breakerColor">#FF909090</color>
-    <dimen name="textSize">20sp</dimen>
+    <dimen name="textSize">16sp</dimen>
     <dimen name="marginRight">30dp</dimen>
+    <color name="blueColor">#FF337ab7</color>
+    <color name="greenColor">#FF5cb85c</color>
+    <color name="redColor">#FFd9534f</color>
+    <color name="yellowColor">#FFf0ad4e</color>
+    <dimen name="marginTop">20dp</dimen>
 </resources>

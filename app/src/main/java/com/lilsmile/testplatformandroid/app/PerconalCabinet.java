@@ -26,7 +26,7 @@ public class PerconalCabinet extends Activity implements View.OnClickListener, C
     Button buttonCreateTest;
     Button buttonChooseTest;
     Button buttonLogout;
-
+    Button buttonStat;
     SharedPreferences preferences;
 
     String token;
@@ -41,10 +41,12 @@ public class PerconalCabinet extends Activity implements View.OnClickListener, C
         buttonChooseTest = (Button)findViewById(R.id.buttonChooseTest);
         buttonCreateTest = (Button)findViewById(R.id.buttonCreateTest);
         buttonLogout = (Button)findViewById(R.id.buttonLogout);
+        buttonStat = (Button)findViewById(R.id.buttonStat);
 
         buttonLogout.setOnClickListener(this);
         buttonCreateTest.setOnClickListener(this);
         buttonChooseTest.setOnClickListener(this);
+        buttonStat.setOnClickListener(this);
 
         token = getIntent().getStringExtra(TOKEN);
     }
@@ -104,6 +106,13 @@ public class PerconalCabinet extends Activity implements View.OnClickListener, C
                     MyAsyncTask myAsyncTask = new MyAsyncTask();
                     myAsyncTask.execute(param);
                 }
+                break;
+            }
+            case R.id.buttonStat:
+            {
+                Intent intent = new Intent(PerconalCabinet.this, Stat.class);
+                intent.putExtra(TOKEN, token);
+                startActivity(intent);
                 break;
             }
         }

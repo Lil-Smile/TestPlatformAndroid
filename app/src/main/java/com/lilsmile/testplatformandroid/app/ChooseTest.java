@@ -32,6 +32,7 @@ public class ChooseTest extends Activity implements Constants{
     ArrayList<Integer> ids;
     String token;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,23 +15,21 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
-
-
+import java.util.Iterator;
 
 
 public class PassTest extends Activity implements  Constants, View.OnClickListener {
 
     String token;
+    int test_id;
     TextView tvTitle;
     TextView tvDesc;
 
@@ -39,10 +37,18 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
     LinearLayout llinsvTest;
     Button buttonSubmit;
 
+    JSONArray questionsJSONArray;
+
+    ArrayList<String> tags;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pass_test);
+
+
+        questionsJSONArray = new JSONArray();
+        tags = new ArrayList<String>();
 
         tvTitle = (TextView)findViewById(R.id.tvTitle);
         tvDesc = (TextView)findViewById(R.id.tvDescription);
@@ -54,6 +60,7 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
 
         token = getIntent().getStringExtra(TOKEN);
         int id = getIntent().getIntExtra(TEST_ID,0);
+        test_id=id;
         if (id==0)
         {
             startActivity(new Intent(PassTest.this, ChooseTest.class).putExtra(TOKEN, token));
@@ -98,18 +105,29 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
     @Override
     public void onClick(View view) {
 
-
-        for (int i = 0; i<llinsvTest.getChildCount(); i++)
-        {
-            LinearLayout questionLayout = (LinearLayout) llinsvTest.getChildAt(i);
-            for (int j = 0; j < questionLayout.getChildCount(); j++)
+        JSONObject request = new JSONObject();
+        try {
+            request.put(TOKEN, token);
+            request.put(TEST_ID, test_id);
+            for (String tag : tags)
             {
-                View currentView = questionLayout.getChildAt(j);
-                if (currentView instanceof LinearLayout)
-                {
-                    
-                }
+                EditText et = (EditText)llinsvTest.findViewWithTag(tag);
+                JSONObject jsonObject = new JSONObject();
+                String[] strings = ((String)et.getTag()).split("!!");
+                jsonObject.put(ANSWER, et.getText().toString());
+                jsonObject.put(NUMBER, Integer.valueOf(strings[0]));
+                jsonObject.put(TITLE, strings[1]);
+                questionsJSONArray.put(jsonObject);
             }
+            request.put(QUESTIONS, questionsJSONArray);
+            Log.wtf("tag", request.toString());
+            SendResultsAsyncTask sendResultsAsyncTask = new SendResultsAsyncTask();
+            String[] strings = new String[1];
+            strings[0]=request.toString();
+            sendResultsAsyncTask.execute(strings);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         /*Intent intent = new Intent(PassTest.this, PerconalCabinet.class);
@@ -197,7 +215,11 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
                 Collections.sort(questions);
                 for(Question question : questions)
                 {
-                    llinsvTest.addView(question.getViewFromQuestion());
+                    View view = question.getViewFromQuestion();
+                    //String tag = question.title;
+                    //tags.add(tag);
+                    //view.setTag(tag);
+                    llinsvTest.addView(view);
                 }
 
             } catch (JSONException e) {
@@ -250,6 +272,38 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
                 {
                     RadioButton radioButton = new RadioButton(PassTest.this);
                     radioButton.setText(answers.get(i).title);
+                    radioButton.setTag(this);
+                    radioButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Question question = (Question)view.getTag();
+                            JSONObject jsonObject = new JSONObject();
+                            try {
+                                jsonObject.put(ANSWER, ((RadioButton)view).getText().toString());
+                                jsonObject.put(NUMBER, question.number);
+                                jsonObject.put(TITLE, question.title);
+                                boolean flag = false;
+                                for (int i = 0; i<questionsJSONArray.length(); i++)
+                                {
+                                    JSONObject tmp = questionsJSONArray.getJSONObject(i);
+                                    if (tmp.get(NUMBER).equals(jsonObject.get(NUMBER)))
+                                    {
+                                        questionsJSONArray.remove(i);
+                                        questionsJSONArray.put(jsonObject);
+                                        flag=true;
+                                        break;
+                                    }
+                                }
+                                if (!flag)
+                                {
+                                    questionsJSONArray.put(jsonObject);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                    });
                     radioGroup.addView(radioButton,i);
                 }
                 linearLayout.addView(radioGroup);
@@ -262,8 +316,78 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
                 {
                     CheckBox checkBox = new CheckBox(PassTest.this);
                     checkBox.setText(answers.get(i).title);
+                    checkBox.setTag(this);
+                    checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                            Question question = (Question) compoundButton.getTag();
+                            if (b)
+                            {
+                                boolean flag = false;
+                                for (int i = 0; i<questionsJSONArray.length(); i++)
+                                {
+                                    try {
+                                        JSONObject jsonObject = questionsJSONArray.getJSONObject(i);
+                                        if (jsonObject.getInt(NUMBER)==question.number)
+                                        {
+                                            String answer = jsonObject.getString(ANSWER);
+                                            answer = answer+","+compoundButton.getText().toString();
+                                            jsonObject.remove(ANSWER);
+                                            jsonObject.put(ANSWER, answer);
+                                            questionsJSONArray.remove(i);
+                                            questionsJSONArray.put(jsonObject);
+                                            flag=true;
+                                            break;
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                                if (!flag)
+                                {
+                                    JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        jsonObject.put(TITLE, question.title);
+                                        jsonObject.put(NUMBER, question.number);
+                                        jsonObject.put(ANSWER, compoundButton.getText().toString());
+                                        questionsJSONArray.put(jsonObject);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            } else
+                            {
+                                for (int i = 0; i<questionsJSONArray.length(); i++)
+                                {
+                                    try {
+                                        JSONObject jsonObject = questionsJSONArray.getJSONObject(i);
+                                        if (jsonObject.getString(NUMBER).equals(String.valueOf(question.number)))
+                                        {
+                                            String answer = jsonObject.getString(ANSWER);
+                                            String[] strings = answer.split(",");
+                                            StringBuilder sb = new StringBuilder();
+                                            for (String string : strings)
+                                            {
+                                                if (!string.equals(answer))
+                                                {
+                                                    sb.append(string).append(",");
+                                                }
+                                            }
+                                            jsonObject.put(ANSWER, sb.toString());
+                                            questionsJSONArray.put(i, jsonObject);
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        }
+                    });
                     linearLayoutBox.addView(checkBox);
                 }
+
                 linearLayout.addView(linearLayoutBox);
             } else
             {
@@ -276,6 +400,9 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
                 tv.setText("Answer:");
 
                 EditText et = new EditText(PassTest.this);
+                String tag = this.number+"!!"+this.title;
+                et.setTag(tag);
+                tags.add(tag);
                 et.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
                 linearLayoutAnswer.addView(tv);
@@ -331,4 +458,82 @@ public class PassTest extends Activity implements  Constants, View.OnClickListen
 
     }
 
+    private class SendResultsAsyncTask extends AsyncTask<String, Void, String>
+    {
+        @Override
+        protected String doInBackground(String... strings) {
+
+            URL url;
+            HttpURLConnection connection = null;
+            try {
+                JSONObject request = new JSONObject(strings[0]);
+                url = new URL(PASSED_TEST_STRING);
+                connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("POST");
+                connection.setRequestProperty("Content-Type", "application/json");
+                connection.setRequestProperty("Content-Length", "" +
+                        Integer.toString(request.toString().getBytes().length));
+                connection.setRequestProperty("Content-Language", "en-US");
+                connection.setUseCaches(false);
+                connection.setDoInput(true);
+                connection.setDoOutput(true);
+
+                //Send request
+                DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
+                wr.writeBytes(request.toString());
+                wr.flush();
+                wr.close();
+
+                //Get response
+                InputStream is = connection.getInputStream();
+                BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+                String line;
+                StringBuilder response = new StringBuilder();
+                while ((line = rd.readLine()) != null) {
+                    response.append(line);
+                    response.append('\r');
+                }
+                rd.close();
+                return response.toString();
+            }  catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (ProtocolException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String param)
+        {
+            try {
+                JSONObject jsonObject = new JSONObject(param);
+                if (jsonObject.has(RESULT))
+                {
+                    String result = jsonObject.getString(RESULT);
+                    if (result.equals(OK))
+                    {
+                        int userWeight = jsonObject.getInt(USER_WEIGHT);
+                        int totalWeight = jsonObject.getInt(TOTAL_WEIGHT);
+                        Toast.makeText(getApplicationContext(), "Result="+userWeight/totalWeight,Toast.LENGTH_LONG).show();
+                    } else
+                    {
+                        Toast.makeText(getApplicationContext(), "Something goes wrong", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            } catch (JSONException e) {
+                Toast.makeText(getApplicationContext(), "Something goes wrong", Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+
+        }
+
+    }
+
+
 }
+

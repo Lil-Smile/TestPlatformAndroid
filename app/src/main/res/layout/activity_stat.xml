@@ -1,0 +1,61 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="com.lilsmile.testplatformandroid.app.Stat">
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+        <RelativeLayout android:layout_width="wrap_content" android:layout_height="wrap_content">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerHorizontal="true"
+                      android:id="@+id/tvPassedTests"
+                      android:text="@string/passedTests"/>
+
+            <com.jjoe64.graphview.GraphView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:layout_below="@id/tvPassedTests"
+                    android:id="@+id/graphPassed"/>
+            <TableLayout android:layout_width="match_parent"
+                         android:layout_below="@id/graphPassed"
+                         android:id="@+id/tablePassedTests"
+                         android:layout_height="wrap_content">
+                <TableRow>
+                    <TextView android:text="@string/testTitle"/>
+                    <TextView android:text="@string/result"/>
+                </TableRow>
+                <View android:layout_height="@dimen/breakerHeight"
+                      android:background="@color/breakerColor"
+                      android:id="@+id/breakerPassed0"  />
+            </TableLayout>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_centerHorizontal="true"
+                      android:id="@+id/tvCreatedTests"
+                      android:layout_below="@id/tablePassedTests"
+                      android:text="@string/createdTests"/>
+            <com.jjoe64.graphview.GraphView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip"
+                    android:layout_below="@id/tvCreatedTests"
+                    android:id="@+id/graphCreated"/>
+            <TableLayout android:layout_width="match_parent"
+                         android:layout_below="@id/graphCreated"
+                         android:id="@+id/tableCreatedTests"
+                         android:layout_height="wrap_content">
+                <TableRow>
+                    <TextView android:text="@string/testTitle"/>
+                    <TextView android:text="@string/result"/>
+                </TableRow>
+                <View android:layout_height="@dimen/breakerHeight"
+                      android:background="@color/breakerColor"
+                      android:id="@+id/breakerCreated0"  />
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

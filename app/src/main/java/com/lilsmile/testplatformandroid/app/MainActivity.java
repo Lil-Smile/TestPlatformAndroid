@@ -395,7 +395,7 @@ public class MainActivity extends Activity implements View.OnClickListener, Cons
                         {
                             preferences.edit().putString(LOGIN, param[1]).putString(PASSWORD,param[2]).commit();
                             MyAsyncTask myAsyncTask = new MyAsyncTask();
-                            myAsyncTask.execute(param[1], param[2], LOGIN);
+                            myAsyncTask.execute(param[1], etPasswordSignup.getText().toString(), LOGIN);
                             break;
                         }
                     }

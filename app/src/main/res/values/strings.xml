@@ -30,4 +30,11 @@
     <string name="author">Author</string>
     <string name="category">Category</string>
     <string name="title_activity_pass_test">PassTest</string>
+    <string name="stat">Stat</string>
+    <string name="submit">Submit</string>
+    <string name="title_activity_stat">Stat</string>
+    <string name="title_activity_graph">Graph</string>
+    <string name="passedTests">Passed tests:</string>
+    <string name="createdTests">Created tests:</string>
+    <string name="result">Result</string>
 </resources>
